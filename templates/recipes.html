@@ -1,11 +1,9 @@
-<html>
-  <head>
-
-  </head>
-  <body>
-    {% for recipe in recipes %}
-      {{recipe.name}}
-      {{recipe.description}}
-    {% endfor %}
-  </body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+{% for recipe in recipes %}
+<a href="{{ url_for('single_recipe', recipe_id=recipe._id) }}">{{recipe.name}}</a>
+{{recipe.description}}
+{% endfor %}
+</div>
+{% endblock %}

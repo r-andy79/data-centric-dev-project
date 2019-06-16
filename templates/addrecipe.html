@@ -1,26 +1,21 @@
-<html>
-  <head>
-
-  </head>
-  <body>
-    <form action="{{ url_for('add_recipe') }}" method="POST">
-        <label for="name">Dish name</label>
+{% extends 'base.html' %}
+{% block content %}
+<h3>Add Recipe</h3>
+    <form action="{{ url_for('insert_recipe') }}" method="POST">
         <input name="name" type="text" required>
-        <label for="description">Please provide a short desciription</label>
+        <label for="name">Dish name</label>
         <input name="description" type="text" required>
-        <label for="author">Author's name</label>
+        <label for="description">Please provide a short desciription</label>
         <input name="author" type="text" required>
-        <label for="cuisine">Cuisine</label>
+        <label for="author">Author's name</label>
         <input name="cuisine" type="text" required>
-        <label for="vegetarian">Vegetarian</label>
-        <input type="checkbox" name="vegetarian">
-        <label for="allergens">Allergens</label>
+        <label for="cuisine">Cuisine</label>
         <input name="allergens" type="text" required>
-        <label for="ingredients">Ingredients</label>
+        <label for="allergens">Allergens</label>
         <input name="ingredients" type="text" class="form-control" id="ingredients" required>
-        <label for="preparation">Preparation</label>
+        <label for="ingredients">Ingredients</label>
         <textarea name="preparation" placeholder="Enter your desciription here" required></textarea>
+        <label for="preparation">Preparation</label>
       <button type="submit" class="btn btn-primary">Add recipe</button>
     </form>
-  </body>
-</html>
+{% endblock %}
