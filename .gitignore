@@ -1,0 +1,11 @@
+# Ignore folder named 'dcd'
+dcd/
+
+# Ignore folder named '.vscode'
+.vscode/
+
+#Ignore folder named '__pycache__'
+__pycache__/
+
+#Ignore file named 'env.py'
+env.py
