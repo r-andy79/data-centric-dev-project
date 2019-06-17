@@ -4,4 +4,5 @@
 {{recipe.author}}
 {{recipe.cuisine}}
 <a href="{{url_for('get_recipes') }}">back to the main page</a>
+<a href="{{ (url_for('delete_recipe', recipe_id=recipe._id)) }}">delete a recipe</a>
 {% endblock %}

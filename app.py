@@ -7,8 +7,7 @@ from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
-app.config["MONGO_URI"] = "mongodb+srv://root:Pablo51@myfirstcluster-8ubao.mongodb.net/recipes_database?retryWrites=true&w=majority"
-app.config["MONGO_DBNAME"] = "recipes_database"
+
 
 mongo = PyMongo(app)
 recipes_collection = mongo.db.recipes
@@ -21,12 +20,12 @@ def get_recipes():
     return render_template("recipes.html", recipes=recipes_collection.find())
 
 
-# add recipe to the database
+# add recipe template
 @app.route("/add_recipe")
 def add_recipe():
     return render_template("addrecipe.html")
 
-
+# insert recipe to the database
 @app.route("/insert_recipe", methods=["POST"])
 def insert_recipe():
     form = request.form.to_dict()
@@ -51,3 +50,9 @@ def insert_recipe():
 def single_recipe(recipe_id):
   the_recipe = recipes_collection.find_one({"_id": ObjectId(recipe_id)})
   return render_template('singlerecipe.html', recipe=the_recipe)
+
+# delete a recipe
+@app.route("/delete_recipe/<recipe_id>")
+def delete_recipe(recipe_id):
+  recipes_collection.remove({"_id": ObjectId(recipe_id)})
+  return redirect(url_for('get_recipes'))
