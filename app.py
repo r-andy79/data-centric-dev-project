@@ -6,7 +6,10 @@ from bson.objectid import ObjectId
 
 
 app = Flask(__name__)
-
+app.config[
+    "MONGO_URI"
+] = "mongodb+srv://root:Pablo51@myfirstcluster-8ubao.mongodb.net/recipes_database?retryWrites=true&w=majority"
+app.config["MONGO_DBNAME"] = "recipes_database"
 
 
 mongo = PyMongo(app)
@@ -24,6 +27,7 @@ def get_recipes():
 @app.route("/add_recipe")
 def add_recipe():
     return render_template("addrecipe.html")
+
 
 # insert recipe to the database
 @app.route("/insert_recipe", methods=["POST"])
@@ -45,14 +49,45 @@ def insert_recipe():
     )
     return redirect(url_for("get_recipes"))
 
+
 # view a single recipe
 @app.route("/single_recipe/<recipe_id>")
 def single_recipe(recipe_id):
-  the_recipe = recipes_collection.find_one({"_id": ObjectId(recipe_id)})
-  return render_template('singlerecipe.html', recipe=the_recipe)
+    the_recipe = recipes_collection.find_one({"_id": ObjectId(recipe_id)})
+    return render_template("singlerecipe.html", recipe=the_recipe)
+
 
 # delete a recipe
 @app.route("/delete_recipe/<recipe_id>")
 def delete_recipe(recipe_id):
-  recipes_collection.remove({"_id": ObjectId(recipe_id)})
-  return redirect(url_for('get_recipes'))
+    recipes_collection.remove({"_id": ObjectId(recipe_id)})
+    return redirect(url_for("get_recipes"))
+
+
+# edit a recipe
+@app.route("/edit_recipe/<recipe_id>")
+def edit_recipe(recipe_id):
+    the_recipe = recipes_collection.find_one({"_id": ObjectId(recipe_id)})
+    return render_template("editrecipe.html", recipe=the_recipe)
+
+
+# update recipe
+@app.route("/update_recipe/<recipe_id>", methods=["POST"])
+def update_recipe(recipe_id):
+    recipes_collection.update(
+        {"_id": ObjectId(recipe_id)},
+        {
+            "name": request.form.get("name"),
+            "description": request.form.get("description"),
+            "author": request.form.get("author"),
+            "cuisine": request.form.get("cuisine"),
+            "allergens": request.form.get("allergens"),
+            "ingredients": request.form.get("ingredients"),
+            "preparation": request.form.get("preparation"),
+            "like": bool("false"),
+            "votes": int("0"),
+            "date_added": datetime.datetime.now(),
+        },
+    )
+    return redirect(url_for("get_recipes"))
+

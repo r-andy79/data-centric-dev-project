@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Edit Recipe</h3>
+    <form style="display: block;" action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" method="POST">
+        <input name="name" type="text" value="{{recipe.name}}">
+        <label for="name">Dish name</label>
+        <input name="description" type="text" value="{{recipe.description}}">
+        <label for="description">Please provide a short desciription</label>
+        <input name="author" type="text" value="{{recipe.author}}">
+        <label for="author">Author's name</label>
+        <input name="cuisine" type="text" value="{{recipe.cuisine}}">
+        <label for="cuisine">Cuisine</label>
+        <input name="allergens" type="text" value="{{recipe.allergens}}">
+        <label for="allergens">Allergens</label>
+        <input name="ingredients" type="text" id="ingredients" value="{% for ingredient in recipe.ingredients %}{{ ingredient }},{% endfor %}">
+        <label for="ingredients">Ingredients</label>
+        <textarea name="preparation" placeholder="Enter your desciription here">{{recipe.preparation}}</textarea>
+        <label for="preparation">Preparation</label>
+      <button type="submit" class="btn btn-primary">Update recipe</button>
+    </form>
+{% endblock %}
