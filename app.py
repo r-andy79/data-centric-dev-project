@@ -76,7 +76,8 @@ def edit_recipe(recipe_id):
 def update_recipe(recipe_id):
     recipes_collection.update(
         {"_id": ObjectId(recipe_id)},
-        {
+        {"$set":
+          {
             "name": request.form.get("name"),
             "description": request.form.get("description"),
             "author": request.form.get("author"),
@@ -84,10 +85,8 @@ def update_recipe(recipe_id):
             "allergens": request.form.get("allergens"),
             "ingredients": request.form.get("ingredients"),
             "preparation": request.form.get("preparation"),
-            "like": bool("false"),
-            "votes": int("0"),
-            "date_added": datetime.datetime.now(),
-        },
+          }
+        }
     )
     return redirect(url_for("get_recipes"))
 
