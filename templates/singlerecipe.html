@@ -3,6 +3,8 @@
 {{recipe.name}}
 {{recipe.author}}
 {{recipe.cuisine}}
+<p>{{recipe.description}}</p>
+<p>{{recipe.preparation}}</p>
 <a href="{{ url_for('get_recipes') }}">back to the main page</a>
 <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}">edit recipe</a>
 <a href="{{ (url_for('delete_recipe', recipe_id=recipe._id)) }}">delete recipe</a>

@@ -1,21 +1,50 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3>Add Recipe</h3>
-    <form action="{{ url_for('insert_recipe') }}" method="POST">
-        <input name="name" type="text" required>
-        <label for="name">Dish name</label>
-        <input name="description" type="text" required>
-        <label for="description">Please provide a short desciription</label>
-        <input name="author" type="text" required>
-        <label for="author">Author's name</label>
-        <input name="cuisine" type="text" required>
-        <label for="cuisine">Cuisine</label>
-        <input name="allergens" type="text" required>
-        <label for="allergens">Allergens</label>
-        <input name="ingredients" type="text" class="form-control" id="ingredients" required>
-        <label for="ingredients">Ingredients</label>
-        <textarea name="preparation" placeholder="Enter your desciription here" required></textarea>
-        <label for="preparation">Preparation</label>
-      <button type="submit" class="btn btn-primary">Add recipe</button>
-    </form>
+<div class="container">
+  <div class="row">
+    <div class="card mx-auto">
+      <div class="card-body">
+        <form action="{{ url_for('insert_recipe') }}" method="POST">
+          <div class="form-group">
+            <label for="name">Dish name</label>
+            <input class="form-control" name="name" type="text" required>
+          </div>
+          <div class="form-group">
+            <label for="description">Please provide a short desciription</label>
+            <input class="form-control" name="description" type="text" required>
+          </div>
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-6">
+                <label for="author">Author's name</label>
+                <input class="form-control" name="author" type="text" required>
+              </div>
+              <div class="col-md-6">
+                <label for="cuisine">Cuisine</label>
+                <input class="form-control" name="cuisine" type="text" required>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="allergens">Allergens</label>
+            <input class="form-control" name="allergens" type="text" required>
+            <p class="small text-muted">*If there aren't any, please type in 'none'.</p>
+          </div>
+          <div class="form-group">
+            <label for="ingredients">Ingredients</label>
+            <input name="ingredients" type="text" class="form-control" id="ingredients" required>
+            <p class="small text-muted">*Please seperate the ingredients with ',' (commas).</p>
+          </div>
+          <div class="form-group">
+            <label for="preparation">Preparation</label>
+            <textarea class="form-control" name="preparation" rows="7" placeholder="Enter your desciription here"
+              required></textarea>
+          </div>
+          <button type="submit" class="float-right btn btn-outline-primary">Add recipe</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
 {% endblock %}

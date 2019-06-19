@@ -42,9 +42,10 @@ def insert_recipe():
             "allergens": form["allergens"],
             "ingredients": (form["ingredients"].split(",")),
             "preparation": form["preparation"],
-            "like": bool("false"),
+            "likes": bool("0"),
+            "views": int("0"),
             "votes": int("0"),
-            "date_added": datetime.datetime.now(),
+            "date_added": datetime.datetime.now()
         }
     )
     return redirect(url_for("get_recipes"))

@@ -2,8 +2,17 @@
 {% block content %}
 <div class="container">
 {% for recipe in recipes %}
+<div class="row">
+  <div class="col">
+  <p>{{recipe.cuisine}}</p>
+</div>
+</div>
+<div class="row">
+  <div class="col">
 <a href="{{ url_for('single_recipe', recipe_id=recipe._id) }}">{{recipe.name}}</a>
-{{recipe.description}}
+<p>{{recipe.description}}</p>
 {% endfor %}
+</div>
+</div>
 </div>
 {% endblock %}
