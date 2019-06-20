@@ -12,7 +12,9 @@
 <a href="{{ url_for('single_recipe', recipe_id=recipe._id) }}">{{recipe.name}}</a>
 <p>{{recipe.description}}</p>
 {% endfor %}
+<a href="{{ url_for('add_recipe') }}">Add recipe</a>
+  </div>
 </div>
 </div>
-</div>
+
 {% endblock %}

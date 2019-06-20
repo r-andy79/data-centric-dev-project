@@ -1,4 +1,5 @@
 import os
+import numpy as np
 import datetime
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
@@ -42,12 +43,17 @@ def insert_recipe():
             "allergens": form["allergens"],
             "ingredients": (form["ingredients"].split(",")),
             "preparation": form["preparation"],
-            "likes": bool("0"),
+            "likes": bool(0),
             "views": int("0"),
             "votes": int("0"),
             "date_added": datetime.datetime.now()
         }
     )
+    print(form["ingredients"].split(","))
+    print(type(form["ingredients"].split(",")))
+    arr = np.asarray(form["ingredients"].split(","))
+    print(arr)
+    print(type(arr))
     return redirect(url_for("get_recipes"))
 
 
