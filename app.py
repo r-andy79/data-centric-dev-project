@@ -18,6 +18,14 @@ recipes_collection = mongo.db.recipes
 users_collection = mongo.db.users
 
 
+def parse_string(string):
+    arr_string = string.split(',')
+    arr_trim = []
+    for item in arr_string:
+      arr_trim.append(item.strip())
+    return arr_trim
+
+
 @app.route("/")
 @app.route("/get_recipes")
 def get_recipes():
@@ -41,7 +49,7 @@ def insert_recipe():
             "author": form["author"],
             "cuisine": form["cuisine"],
             "allergens": form["allergens"],
-            "ingredients": (form["ingredients"].split(",")),
+            "ingredients": parse_string(form["ingredients"]),
             "preparation": form["preparation"],
             "likes": bool(0),
             "views": int("0"),
@@ -49,11 +57,6 @@ def insert_recipe():
             "date_added": datetime.datetime.now()
         }
     )
-    print(form["ingredients"].split(","))
-    print(type(form["ingredients"].split(",")))
-    arr = np.asarray(form["ingredients"].split(","))
-    print(arr)
-    print(type(arr))
     return redirect(url_for("get_recipes"))
 
 
@@ -90,10 +93,9 @@ def update_recipe(recipe_id):
             "author": request.form.get("author"),
             "cuisine": request.form.get("cuisine"),
             "allergens": request.form.get("allergens"),
-            "ingredients": request.form.get("ingredients"),
+            "ingredients": parse_string(request.form.get("ingredients")),
             "preparation": request.form.get("preparation"),
           }
         }
     )
     return redirect(url_for("get_recipes"))
-
