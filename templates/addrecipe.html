@@ -17,7 +17,12 @@
             <div class="form-row">
               <div class="col-md-6">
                 <label for="author">Author's name</label>
-                <input class="form-control" name="author" type="text" required>
+                <select id="user" class="form-control" name="username" type="text" required>
+                  <option value="" disabled selected>choose the author</option>
+                  {% for user in users %}
+                  <option value="{{user.username}}">{{user.username}}</option>
+                  {% endfor %}
+                </select>
               </div>
               <div class="col-md-6">
                 <label for="cuisine">Cuisine</label>

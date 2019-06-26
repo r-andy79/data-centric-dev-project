@@ -9,3 +9,6 @@ __pycache__/
 
 #Ignore file named 'env.py'
 env.py
+
+#Ignore file name 'cuisine.html
+templates/cuisine.html
