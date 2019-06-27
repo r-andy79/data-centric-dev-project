@@ -49,9 +49,8 @@ def insert_recipe():
         {
             "name": form["name"],
             "description": form["description"],
-            "author": form["author"],
             "cuisine": form["cuisine"].lower(),
-            "allergens": form["allergens"],
+            "allergens": parse_string(form["allergens"]),
             "ingredients": parse_string(form["ingredients"]),
             "preparation": form["preparation"],
             "likes": bool(0),
@@ -81,7 +80,8 @@ def delete_recipe(recipe_id):
 @app.route("/edit_recipe/<recipe_id>")
 def edit_recipe(recipe_id):
     the_recipe = recipes_collection.find_one({"_id": ObjectId(recipe_id)})
-    return render_template("editrecipe.html", recipe=the_recipe)
+    the_author = users_collection.find()
+    return render_template("editrecipe.html", recipe=the_recipe, author=the_author)
 
 
 # update recipe

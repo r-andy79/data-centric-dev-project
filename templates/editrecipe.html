@@ -1,50 +1,57 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container">
-        <div class="row">
-          <div class="card mx-auto">
-            <div class="card-body">
-              <form action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" method="POST">
-                <div class="form-group">
-                  <label for="name">Dish name</label>
-                  <input class="form-control" name="name" type="text" required value="{{recipe.name}}">
-                </div>
-                <div class="form-group">
-                  <label for="description">Please provide a short desciription</label>
-                  <input class="form-control" name="description" type="text" required value="{{recipe.description}}">
-                </div>
-                <div class="form-group">
-                  <div class="form-row">
-                    <div class="col-md-6">
-                      <label for="author">Author's name</label>
-                      <input class="form-control" name="author" type="text" required value="{{recipe.author}}">
-                    </div>
-                    <div class="col-md-6">
-                      <label for="cuisine">Cuisine</label>
-                      <input class="form-control" name="cuisine" type="text" required value="{{recipe.cuisine}}">
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="allergens">Allergens</label>
-                  <input class="form-control" name="allergens" type="text" required value="{{recipe.allergens}}">
-                  <p class="small text-muted">*If there aren't any, please type in 'none'.</p>
-                </div>
-                <div class="form-group">
-                  <label for="ingredients">Ingredients</label>
-                  <input name="ingredients" type="text" class="form-control" id="ingredients" value="{% for ingredient in recipe.ingredients %}{{ ingredient }},{% endfor %}" required>
-                  <p class="small text-muted">*Please seperate the ingredients with ',' (commas).</p>
-                </div>
-                <div class="form-group">
-                  <label for="preparation">Preparation</label>
-                  <textarea class="form-control" name="preparation" rows="7" placeholder="Enter your desciription here"
-                    required>{{recipe.preparation}}</textarea>
-                </div>
-                <button type="submit" class="float-right btn btn-outline-primary">Edit recipe</button>
-            </div>
-            </form>
+<div class="container">
+  <div class="row">
+    <div class="card mx-auto">
+      <div class="card-body">
+        <form action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" method="POST">
+          <div class="form-group">
+            <label for="name">Dish name</label>
+            <input class="form-control" name="name" type="text" required value="{{recipe.name}}">
           </div>
-        </div>
+          <div class="form-group">
+            <label for="description">Please provide a short desciription</label>
+            <input class="form-control" name="description" type="text" required value="{{recipe.description}}">
+          </div>
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-6">
+                <label for="author">Author's name</label>
+                <select id="user" class="form-control" name="username" type="text" required>
+                  <option value="" disabled selected>choose the author</option>
+                  {% for user in users %}
+                  {% if user.username == recipe.author %}
+                  <option value="{{user.username}}">{{user.username}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="cuisine">Cuisine</label>
+                <input class="form-control" name="cuisine" type="text" required value="{{recipe.cuisine}}">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="allergens">Allergens</label>
+            <input class="form-control" name="allergens" type="text" required value="{{recipe.allergens}}">
+            <p class="small text-muted">*If there aren't any, please type in 'none'.</p>
+          </div>
+          <div class="form-group">
+            <label for="ingredients">Ingredients</label>
+            <input name="ingredients" type="text" class="form-control" id="ingredients"
+              value="{% for ingredient in recipe.ingredients %}{{ ingredient }},{% endfor %}" required>
+            <p class="small text-muted">*Please seperate the ingredients with ',' (commas).</p>
+          </div>
+          <div class="form-group">
+            <label for="preparation">Preparation</label>
+            <textarea class="form-control" name="preparation" rows="7" placeholder="Enter your desciription here"
+              required>{{recipe.preparation}}</textarea>
+          </div>
+          <button type="submit" class="float-right btn btn-outline-primary">Edit recipe</button>
       </div>
-      </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
 {% endblock %}
