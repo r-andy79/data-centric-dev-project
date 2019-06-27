@@ -1,4 +1,5 @@
 import os
+import numpy as np
 import datetime
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
@@ -30,15 +31,11 @@ def parse_string(string):
 def get_recipes():
     return render_template("recipes.html", recipes=recipes_collection.find())
 
-@app.route("/filter_recipes")
-def filter_recipes():
-    return render_template("cuisine.html", recipes=recipes_collection.find({"cuisine":"italian"}))
-
 
 # add recipe template
 @app.route("/add_recipe")
 def add_recipe():
-    return render_template("addrecipe.html", users=users_collection.find())
+    return render_template("addrecipe.html")
 
 
 # insert recipe to the database
