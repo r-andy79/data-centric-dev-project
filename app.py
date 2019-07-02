@@ -36,7 +36,7 @@ def get_recipes():
 def register():
   return render_template("register.html")
 
-#add user to the database
+#adding user to the database
 @app.route("/insert_user", methods=["POST"])
 def insert_user():
   form = request.form.to_dict()
@@ -52,10 +52,38 @@ def add_recipe():
 def cuisines():
   return render_template("cuisines.html", recipes=recipes_collection.find())
 
-#sorting by views
-@app.route("/sort")
-def sort():
+#sorting options
+@app.route("/sort_views_asc")
+def sort_views_asc():
+  return render_template("recipes.html", recipes=recipes_collection.find().sort("views", 1))
+
+@app.route("/sort_views_desc")
+def sort_views_desc():
   return render_template("recipes.html", recipes=recipes_collection.find().sort("views", -1))
+
+@app.route("/sort_date_asc")
+def sort_date_asc():
+  return render_template("recipes.html", recipes=recipes_collection.find().sort("date_added", 1))
+
+@app.route("/sort_date_desc")
+def sort_date_desc():
+  return render_template("recipes.html", recipes=recipes_collection.find().sort("date_added", -1))
+
+@app.route("/sort_cuisine_asc")
+def sort_cuisine_asc():
+  return render_template("recipes.html", recipes=recipes_collection.find().sort("cuisine", 1))
+
+@app.route("/sort_cuisine_desc")
+def sort_cuisine_desc():
+  return render_template("recipes.html", recipes=recipes_collection.find().sort("cuisine", -1))
+
+@app.route("/sort_author_asc")
+def sort_author_asc():
+  return render_template("recipes.html", recipes=recipes_collection.find().sort("author", 1))
+
+@app.route("/sort_author_desc")
+def sort_author_desc():
+  return render_template("recipes.html", recipes=recipes_collection.find().sort("author", -1))
 
 # insert recipe to the database
 @app.route("/insert_recipe", methods=["POST"])

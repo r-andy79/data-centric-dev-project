@@ -1,13 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container-fluid">
-  <a href="{{url_for('sort')}}">sort by views</a>
+  <div class="row">
+    <div class="col-6"></div>
+    <div class="col-6"></div>
+  </div>
+  <a href="{{url_for('sort_views_asc')}}">views ascending</a>
+  <a href="{{url_for('sort_views_desc')}}">views descending</a>
+  <a href="{{url_for('sort_date_asc')}}">date ascending</a>
+  <a href="{{url_for('sort_date_desc')}}">date descending</a>
+  <a href="{{url_for('sort_cuisine_asc')}}">cuisine ascending</a>
+  <a href="{{url_for('sort_cuisine_desc')}}">cuisine descending</a>
+  <a href="{{url_for('sort_author_asc')}}">author ascending</a>
+  <a href="{{url_for('sort_author_desc')}}">author descending</a>
   <div class="row">
     {% for recipe in recipes %}
     <div style="border: 1px solid black;" class="col-lg-3 mx-1 my-1">
-      <a href="{{ url_for('single_recipe', recipe_id=recipe._id) }}">{{recipe.name}}</a>
+      <p><strong>{{recipe.name}}</strong></p>
       <p>{{recipe.description}}</p>
+      <p>{{recipe.author}}</p>
       <p>Cuisine: {{recipe.cuisine}}</p>
+      <a href="{{ url_for('single_recipe', recipe_id=recipe._id) }}">Read more</a>
       <p>Views: {{recipe.views}}</p>
       <p>Likes: {{recipe.votes}}</p>
     </div>
