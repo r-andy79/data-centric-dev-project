@@ -31,12 +31,31 @@ def parse_string(string):
 def get_recipes():
     return render_template("recipes.html", recipes=recipes_collection.find())
 
+#user registration
+@app.route("/register")
+def register():
+  return render_template("register.html")
+
+#add user to the database
+@app.route("/insert_user", methods=["POST"])
+def insert_user():
+  form = request.form.to_dict()
+  users_collection.insert_one(form)
+  return redirect(url_for("add_recipe"))
 
 # add recipe template
 @app.route("/add_recipe")
 def add_recipe():
     return render_template("addrecipe.html")
 
+@app.route("/cuisines")
+def cuisines():
+  return render_template("cuisines.html", recipes=recipes_collection.find())
+
+#sorting by views
+@app.route("/sort")
+def sort():
+  return render_template("recipes.html", recipes=recipes_collection.find().sort("views", -1))
 
 # insert recipe to the database
 @app.route("/insert_recipe", methods=["POST"])
@@ -46,6 +65,7 @@ def insert_recipe():
         {
             "name": form["name"],
             "description": form["description"],
+            "author": form["author"],
             "cuisine": form["cuisine"].lower(),
             "allergens": parse_string(form["allergens"]),
             "ingredients": parse_string(form["ingredients"]),
@@ -59,9 +79,15 @@ def insert_recipe():
     return redirect(url_for("get_recipes"))
 
 
-# view a single recipe
+# single recipe view
 @app.route("/single_recipe/<recipe_id>")
 def single_recipe(recipe_id):
+    recipes_collection.update(
+        {"_id": ObjectId(recipe_id)},
+        {"$inc": 
+        {"views": 1}
+      }
+    )
     the_recipe = recipes_collection.find_one({"_id": ObjectId(recipe_id)})
     return render_template("singlerecipe.html", recipe=the_recipe)
 
@@ -92,7 +118,7 @@ def update_recipe(recipe_id):
             "description": request.form.get("description"),
             "author": request.form.get("author"),
             "cuisine": request.form.get("cuisine"),
-            "allergens": request.form.get("allergens"),
+            "allergens": parse_string(request.form.get("allergens")),
             "ingredients": parse_string(request.form.get("ingredients")),
             "preparation": request.form.get("preparation"),
           }

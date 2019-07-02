@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for recipe in recipes %}
+    <div style="border: 1px solid black;" class="col-lg-3 mx-1 my-1">
+      <p>{{recipe.cuisine}}</p>
+    </div>
+{% endfor %}
+{% endblock %}

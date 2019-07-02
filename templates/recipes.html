@@ -1,20 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
-{% for recipe in recipes %}
-<div class="row">
-  <div class="col">
-  <p>{{recipe.cuisine}}</p>
-</div>
-</div>
-<div class="row">
-  <div class="col">
-<a href="{{ url_for('single_recipe', recipe_id=recipe._id) }}">{{recipe.name}}</a>
-<p>{{recipe.description}}</p>
-{% endfor %}
-<a href="{{ url_for('add_recipe') }}">Add recipe</a>
+<div class="container-fluid">
+  <a href="{{url_for('sort')}}">sort by views</a>
+  <div class="row">
+    {% for recipe in recipes %}
+    <div style="border: 1px solid black;" class="col-lg-3 mx-1 my-1">
+      <a href="{{ url_for('single_recipe', recipe_id=recipe._id) }}">{{recipe.name}}</a>
+      <p>{{recipe.description}}</p>
+      <p>Cuisine: {{recipe.cuisine}}</p>
+      <p>Views: {{recipe.views}}</p>
+      <p>Likes: {{recipe.votes}}</p>
+    </div>
+    {% endfor %}
   </div>
-</div>
 </div>
 
 {% endblock %}

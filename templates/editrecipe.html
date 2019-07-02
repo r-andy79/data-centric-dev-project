@@ -17,13 +17,7 @@
             <div class="form-row">
               <div class="col-md-6">
                 <label for="author">Author's name</label>
-                <select id="user" class="form-control" name="username" type="text" required>
-                  <option value="" disabled selected>choose the author</option>
-                  {% for user in users %}
-                  {% if user.username == recipe.author %}
-                  <option value="{{user.username}}">{{user.username}}</option>
-                  {% endfor %}
-                </select>
+                <input class="form-control" name="author" type="text" required value="{{recipe.author}}">
               </div>
               <div class="col-md-6">
                 <label for="cuisine">Cuisine</label>
@@ -33,7 +27,8 @@
           </div>
           <div class="form-group">
             <label for="allergens">Allergens</label>
-            <input class="form-control" name="allergens" type="text" required value="{{recipe.allergens}}">
+            <input class="form-control" name="allergens" type="text"
+              value="{% for allergen in recipe.allergens %}{{ allergen }}{% endfor %}," required>
             <p class="small text-muted">*If there aren't any, please type in 'none'.</p>
           </div>
           <div class="form-group">
