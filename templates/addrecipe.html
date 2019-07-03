@@ -16,8 +16,15 @@
           <div class="form-group">
             <div class="form-row">
               <div class="col-md-6">
-                <label for="author">Author's name</label>
-                <input class="form-control" name="author" type="text" required>
+                  <label for="author">Author's name</label>
+                  <select class="form-control" name="author" id="author">
+                    <option value="" disabled selected>Choose the author</option>
+                    {% for author in authors %}
+                    <option value="{{author.username}}">{{author.username}}</option>
+                    {% endfor %}
+                  </select>
+                <!-- <label for="author">Author's name</label>
+                <input class="form-control" name="author" type="text" required> -->
               </div>
               <div class="col-md-6">
                 <label for="cuisine">Cuisine</label>

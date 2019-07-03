@@ -4,7 +4,7 @@ import datetime
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-
+from bson.json_util import dumps
 
 app = Flask(__name__)
 app.config[
@@ -25,6 +25,12 @@ def parse_string(string):
       arr_trim.append(item.strip())
     return arr_trim
 
+@app.route("/test", methods=['POST'])
+def test():
+    query = request.json['q']
+
+    results = recipes_collection.find(query)
+    return dumps(results)
 
 @app.route("/")
 @app.route("/get_recipes")
@@ -46,7 +52,7 @@ def insert_user():
 # add recipe template
 @app.route("/add_recipe")
 def add_recipe():
-    return render_template("addrecipe.html")
+    return render_template("addrecipe.html", authors=users_collection.find())
 
 @app.route("/cuisines")
 def cuisines():
