@@ -58,6 +58,18 @@ def add_recipe():
 def cuisines():
   return render_template("cuisines.html", recipes=recipes_collection.find())
 
+@app.route("/sorting/")
+def sorting():
+  if request.method=='GET':
+    sort_value = request.args.get('sort', 'views')
+    sort_direction_value = request.args.get('direction', 'desc')
+    if sort_direction_value == 'asc':
+      sort_direction_value_translated = 1
+    elif sort_direction_value == 'desc':
+      sort_direction_value_translated = -1
+    print(sort_value)
+  return render_template("recipes.html", recipes=recipes_collection.find().sort(sort_value, sort_direction_value_translated))
+
 #sorting options
 @app.route("/sort_views_asc")
 def sort_views_asc():
