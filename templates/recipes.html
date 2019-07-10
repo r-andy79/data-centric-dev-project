@@ -5,14 +5,10 @@
     <div class="col-6"></div>
     <div class="col-6"></div>
   </div>
-  <a href="{{url_for('sort_views_asc')}}">views ascending</a>
-  <a href="{{url_for('sort_views_desc')}}">views descending</a>
-  <a href="{{url_for('sort_date_asc')}}">date ascending</a>
-  <a href="{{url_for('sort_date_desc')}}">date descending</a>
-  <a href="{{url_for('sort_cuisine_asc')}}">cuisine ascending</a>
-  <a href="{{url_for('sort_cuisine_desc')}}">cuisine descending</a>
-  <a href="{{url_for('sort_author_asc')}}">author ascending</a>
-  <a href="{{url_for('sort_author_desc')}}">author descending</a>
+  <a href="{{xxx}}">views sorting asc</a>
+  <a href="{{url_for('sorting') + '?sort=views&direction=desc'}}">views descending</a>
+  <a href="{{url_for('sorting') + '?sort=cuisine&direction=asc'}}">cuisine ascending</a>
+  <a href="{{url_for('sorting') + '?sort=cuisine&direction=desc'}}">cuisine descending</a>
   <div class="row">
     {% for recipe in recipes %}
     <div style="border: 1px solid black;" class="col-lg-3 mx-1 my-1">

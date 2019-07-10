@@ -7,9 +7,7 @@ from bson.objectid import ObjectId
 from bson.json_util import dumps
 
 app = Flask(__name__)
-app.config[
-    "MONGO_URI"
-] = "mongodb+srv://root:Pablo51@myfirstcluster-8ubao.mongodb.net/recipes_database?retryWrites=true&w=majority"
+app.config["MONGO_URI"] = "mongodb+srv://root:Pablo51@myfirstcluster-8ubao.mongodb.net/recipes_database?retryWrites=true&w=majority"
 app.config["MONGO_DBNAME"] = "recipes_database"
 
 
@@ -61,47 +59,11 @@ def cuisines():
 @app.route("/sorting/")
 def sorting():
   if request.method=='GET':
-    sort_value = request.args.get('sort', 'views')
-    sort_direction_value = request.args.get('direction', 'desc')
-    if sort_direction_value == 'asc':
-      sort_direction_value_translated = 1
-    elif sort_direction_value == 'desc':
-      sort_direction_value_translated = -1
-    print(sort_value)
-  return render_template("recipes.html", recipes=recipes_collection.find().sort(sort_value, sort_direction_value_translated))
-
-#sorting options
-@app.route("/sort_views_asc")
-def sort_views_asc():
-  return render_template("recipes.html", recipes=recipes_collection.find().sort("views", 1))
-
-@app.route("/sort_views_desc")
-def sort_views_desc():
-  return render_template("recipes.html", recipes=recipes_collection.find().sort("views", -1))
-
-@app.route("/sort_date_asc")
-def sort_date_asc():
-  return render_template("recipes.html", recipes=recipes_collection.find().sort("date_added", 1))
-
-@app.route("/sort_date_desc")
-def sort_date_desc():
-  return render_template("recipes.html", recipes=recipes_collection.find().sort("date_added", -1))
-
-@app.route("/sort_cuisine_asc")
-def sort_cuisine_asc():
-  return render_template("recipes.html", recipes=recipes_collection.find().sort("cuisine", 1))
-
-@app.route("/sort_cuisine_desc")
-def sort_cuisine_desc():
-  return render_template("recipes.html", recipes=recipes_collection.find().sort("cuisine", -1))
-
-@app.route("/sort_author_asc")
-def sort_author_asc():
-  return render_template("recipes.html", recipes=recipes_collection.find().sort("author", 1))
-
-@app.route("/sort_author_desc")
-def sort_author_desc():
-  return render_template("recipes.html", recipes=recipes_collection.find().sort("author", -1))
+    sort_term = request.args.get('sort', 'views')
+    sort_direction_term = request.args.get('direction', 'desc')
+    sort_direction_translated = {'asc': 1, 'desc': -1}[sort_direction_term]
+    xxx=url_for('sorting') + '?sort=views&direction=asc'
+  return render_template("recipes.html", recipes=recipes_collection.find().sort(sort_term, sort_direction_translated), xxx=xxx)
 
 # insert recipe to the database
 @app.route("/insert_recipe", methods=["POST"])
