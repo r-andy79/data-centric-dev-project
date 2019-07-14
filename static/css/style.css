@@ -1,0 +1,24 @@
+.sorting__list {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+}
+
+.sorting__list li {
+  margin-right: 20px;
+}
+
+.my-container {
+  border: 1px dotted red;
+  box-sizing: border-box;
+}
+
+.my-row {
+  border: 1px dashed blue;
+}
+
+.my-col {
+  border: 1px solid green;
+  padding: 20px;
+  max-width: 24%;
+}

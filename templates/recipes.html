@@ -1,17 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
+<div class="container my-container">
   <div class="row">
     <div class="col-6"></div>
     <div class="col-6"></div>
   </div>
+  <div class="row">
+  <ul class="sorting__list">
+    <li><a href="{{xxx}}">views sorting asc</a></li>
+    <li><a href="{{url_for('sorting') + '?sort=views&direction=desc'}}">views descending</a></li>
+    <li><a href="{{url_for('sorting') + '?sort=cuisine&direction=asc'}}">cuisine ascending</a></li>
+    <li><a href="{{url_for('sorting') + '?sort=cuisine&direction=desc'}}">cuisine descending</a></li>
+  </ul>
   <a href="{{xxx}}">views sorting asc</a>
   <a href="{{url_for('sorting') + '?sort=views&direction=desc'}}">views descending</a>
   <a href="{{url_for('sorting') + '?sort=cuisine&direction=asc'}}">cuisine ascending</a>
   <a href="{{url_for('sorting') + '?sort=cuisine&direction=desc'}}">cuisine descending</a>
-  <div class="row">
+</div>
+  <div class="row my-row">
     {% for recipe in recipes %}
-    <div style="border: 1px solid black;" class="col-lg-3 mx-1 my-1">
+    <div class="col-lg-4 col-md-6 my-col justify-content-between mx-1 my-1">
       <p><strong>{{recipe.name}}</strong></p>
       <p>{{recipe.description}}</p>
       <p>{{recipe.author}}</p>
